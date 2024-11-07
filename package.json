@@ -1,0 +1,30 @@
+{
+  "name": "es-wasm-application",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BunnyWay/es-wasm-application.git"
+  },
+  "keywords": [
+    "github",
+    "bunny"
+  ],
+  "author": "Bunny Devs",
+  "license": "MIT",
+  "scripts": {
+    "lint": "deno lint",
+    "test": "deno test --allow-none -A src/**/*.test.ts",
+    "check": "deno check src/main.ts",
+    "build": "mkdir -p dist && deno bundle src/main.ts dist/index.ts",
+    "dev": "deno run src/main.ts",
+    "release": "echo \"No release\"",
+    "ci:version": "pnpm changeset version",
+    "ci:publish": "./scripts/publish.sh"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2"
+  }
+}

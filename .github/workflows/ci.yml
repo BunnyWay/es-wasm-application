@@ -1,0 +1,25 @@
+name: Continous integration
+
+on:
+  push:
+    branches:
+    - '*'
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+
+    name: 'Install, lint and test'
+
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+
+      - name: 'Setup Javascript'
+        uses: ./.github/actions/setup-project
+
+      - name: 'Lint'
+        run: deno task lint
+
+      - name: 'Test'
+        run: deno task test

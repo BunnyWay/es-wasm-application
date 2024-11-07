@@ -1,0 +1,42 @@
+name: On merge changeset
+
+on:
+  # To enable the Changeset pattern, you'll need to uncomment those line so each
+  # time a Pull Request is closed you run this action.
+  # pull_request:
+  #   types: [closed]
+  #   branches:
+  #     - 'main'
+  # Every push on main are going to run this action.
+  push:
+    branches:
+      - 'main'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish:
+    # To ensure you only run this action when closing a Release PR, you should
+    # uncomment this
+    # if: contains(github.event.pull_request.head.ref, 'changeset-release')
+
+    name: 'Upload script'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: 'Setup Javascript'
+        uses: ./.github/actions/setup-project
+
+      - name: Bundle the script into a single file
+        run: deno task build
+
+      - name: Publish the script to Bunny
+        uses: 'BunnyWay/actions/deploy-script@main'
+        with:
+          script_id: ${{ secrets.SCRIPT_ID }}
+          file: "dist/index.ts"
