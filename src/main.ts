@@ -1,4 +1,4 @@
-import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
+import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.12.0";
 
 const wasmBinary = fetch("https://wasm-test.b-cdn.net/incrementer.wasm");
 const { instance, module: _ } = await WebAssembly.instantiateStreaming(
